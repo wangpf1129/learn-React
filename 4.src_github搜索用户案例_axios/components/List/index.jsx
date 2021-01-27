@@ -1,29 +1,9 @@
 import React, { Component } from 'react'
-import PubSub from 'pubsub-js'
-
 import './index.css'
 
 export class List extends Component {
-
-  state = {
-    users: [],
-    isFirst: true, // 是否为第一次打开页面
-    isLoading: false,  // 标识是否处于加载中
-    err: "",  // 存储请求相关的错误信息
-  }
-
-  componentDidMount() {
-    this.token = PubSub.subscribe('updateState', (msg, data) => {
-      this.setState(data)
-    })
-  }
-
-  componentWillUnmount() {
-    PubSub.unsubscribe(this.token)
-  }
-
   render() {
-    const { users, isFirst, isLoading, err } = this.state
+    const { users, isFirst, isLoading, err } = this.props
     return (
       <div className="row">
         {
@@ -32,7 +12,7 @@ export class List extends Component {
               err ? <h2 style={{ color: 'red' }}>{err}</h2> :
                 users.map((user) => {
                   return (
-                    <div className="card" key={user.id}>
+                    <div className="card">
                       <a href={user.html_url} target="_blank" rel="noreferrer">
                         <img alt="head_portrait" src={user.avatar_url} style={{ width: '100px' }} />
                       </a>

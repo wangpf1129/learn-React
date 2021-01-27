@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import PubSub from 'pubsub-js'
+import axios from 'axios'
 
 
 import './index.css'
 
 export class Search extends Component {
+
+
 
   render() {
     return (
@@ -18,20 +20,22 @@ export class Search extends Component {
     )
   }
 
-  toSearch = async () => {
+  toSearch = () => {
     const { keyCodeElement: { value: path } } = this
-    //发送请求前更新List状态
-    PubSub.publish('updateState', { isFirst: false, isLoading: true })
+    //发送请求前更新App状态
+    this.props.updateAPPState({ isFirst: false, isLoading: true })
 
-    // 使用fetch 发送请求
-    try {
-      const response = await fetch(`/api1/search/users?q=${path}`)
-      const data = await response.json()
-      PubSub.publish('updateState', { isLoading: false, users: data.items })
-    }
-    catch (error) {
-      PubSub.publish('updateState', { isLoading: false, err: error.message })
-    }
+    axios.get(`/api1/search/users?q=${path}`)
+      .then(
+        response => {
+          //发送请求成功后更新App状态
+          this.props.updateAPPState({ isLoading: false, users: response.data.items })
+        },
+        error => {
+          //发送请求错误后更新App状态
+          this.props.updateAPPState({ isLoading: false, err: error.message })
+        }
+      )
   }
 }
 

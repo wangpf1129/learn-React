@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'/
 import PubSub from 'pubsub-js'
 
 
@@ -23,15 +24,17 @@ export class Search extends Component {
     //发送请求前更新List状态
     PubSub.publish('updateState', { isFirst: false, isLoading: true })
 
-    // 使用fetch 发送请求
-    try {
-      const response = await fetch(`/api1/search/users?q=${path}`)
-      const data = await response.json()
-      PubSub.publish('updateState', { isLoading: false, users: data.items })
-    }
-    catch (error) {
-      PubSub.publish('updateState', { isLoading: false, err: error.message })
-    }
+    axios.get(`/api1/search/users?q=${path}`)
+      .then(
+        response => {
+          //发送请求成功后更新List状态
+          PubSub.publish('updateState', { isLoading: false, users: response.data.items })
+        },
+        error => {
+          //发送请求错误后更新List状态
+          PubSub.publish('updateState', { isLoading: false, err: error.message })
+        }
+      )
   }
 }
 

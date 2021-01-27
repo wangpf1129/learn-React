@@ -1,0 +1,9 @@
+.list{
+  background-color: skyblue;
+  color: aliceblue;
+  height: 150px;
+  overflow: auto;
+}
+.news{
+  height: 30px;
+}

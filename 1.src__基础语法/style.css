@@ -1,0 +1,16 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 10px;
+}
+
+.Son {
+  background: darkseagreen;
+  padding: 10px;
+}
+
+.Grandson {
+  background: slateblue;
+  padding: 10px;
+  color: white;
+}

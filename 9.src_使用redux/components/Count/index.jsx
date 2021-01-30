@@ -11,7 +11,6 @@ import {
 export class Count extends Component {
 
   render() {
-
     return (
       <div>
         <h2>当前求和为：{store.getState()}</h2>
@@ -47,7 +46,6 @@ export class Count extends Component {
     const { value } = this.currentNum
     store.dispatch(createIncrementAsyncAction(value * 1, 500))
   }
-
 }
 
 export default Count

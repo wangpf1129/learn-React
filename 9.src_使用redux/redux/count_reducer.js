@@ -9,9 +9,10 @@ function countReducer(preState =0, action) {
   }
   if (type in typeMap) {
     return typeMap[type]
-  } else {
+  } else { 
     return preState
   }
 }
+ 
 
 export default countReducer

@@ -5,14 +5,15 @@ import {
   createIncrementAction,
   createDecrementAction,
   createIncrementAsyncAction
-} from '../../redux/count_action'
+} from '../../redux/actions/count'
 
- class Count extends Component {
+class Count extends Component {
 
   render() {
     return (
       <div>
-        <h2>当前求和为：{this.props.count}</h2>
+        <h2>我是Count组件，下方组件的总人数为：{this.props.personLen}</h2>
+        <h4>当前求和为：{this.props.count}</h4>
         <select ref={c => this.currentNum = c}>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -49,7 +50,10 @@ import {
 
 // 使用connect()()创建关系并暴露一个Count的容器组件
 export default connect(
-  state => ({ count: state }),
+  state => ({
+    count: state.count,
+    personLen: state.person.length
+  }),
   {
     createIncrementAction,
     createDecrementAction,

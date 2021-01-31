@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 // 引入 connect 用于连接UI组件和redux
 import { connect } from 'react-redux'
 import {
-  createIncrementAction,
-  createDecrementAction,
-  createIncrementAsyncAction
+  increment,
+  decrement,
+  incrementAsync
 } from '../../redux/actions/count'
 
 class Count extends Component {
@@ -29,22 +29,22 @@ class Count extends Component {
 
   increment = () => {
     const { value } = this.currentNum
-    this.props.createIncrementAction(value * 1)
+    this.props.increment(value * 1)
   }
   decrement = () => {
     const { value } = this.currentNum
-    this.props.createDecrementAction(value * 1)
+    this.props.decrement(value * 1)
 
   }
   incrementIfOdd = () => {
     const { value } = this.currentNum
     if (this.props.count % 2 !== 0) {
-      this.props.createIncrementAsyncAction(value * 1)
+      this.props.increment(value * 1)
     }
   }
   incrementAsync = () => {
     const { value } = this.currentNum
-    this.props.createIncrementAsyncAction(value * 1, 500)
+    this.props.incrementAsync(value * 1, 500)
   }
 }
 
@@ -55,8 +55,8 @@ export default connect(
     personLen: state.person.length
   }),
   {
-    createIncrementAction,
-    createDecrementAction,
-    createIncrementAsyncAction
+    increment,
+    decrement,
+    incrementAsync
   }
 )(Count)

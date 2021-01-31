@@ -1,16 +1,10 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import  reducer from './reducers/index'
 
 // 用于支持异步action
 import thunk from 'redux-thunk'
-
-import countReducer from './reducers/count'
-import personReducer from './reducers/person'
-
-const allReducers = combineReducers({
-  count: countReducer,
-  person:personReducer
-})
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 
 
-export default createStore(allReducers,applyMiddleware(thunk))
+export default createStore(reducer,composeWithDevTools(applyMiddleware(thunk)))

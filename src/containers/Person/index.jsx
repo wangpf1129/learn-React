@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { nanoid } from 'nanoid'
 import { connect } from 'react-redux'
-import { createPersonAction } from '../../redux/actions/person'
+import { addPerson } from '../../redux/actions/person'
 
 class Person extends Component {
   render() {
@@ -26,7 +26,7 @@ class Person extends Component {
     const name = this.nameNode.value
     const age = this.ageNode.value
     const personObj = { id: nanoid(), name, age }
-    this.props.createPersonAction(personObj)
+    this.props.addPerson(personObj)
   }
 }
 
@@ -37,6 +37,6 @@ export default connect(
     count: state.count,
   }),
   {
-    createPersonAction
+    addPerson
   }
 )(Person)

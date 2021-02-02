@@ -1,26 +1,24 @@
-import React, { useRef, forwardRef, useEffect } from 'react'
-
+import React from 'react'
+import useList from './hooks/useList'
 function App() {
-  const btnRef = useRef(null)
-  useEffect(() => {
-    console.log(btnRef.current);
-  }, [])
-
+  const { list, deleteIndex } = useList()
   return (
     <div>
-      <Button ref={btnRef} />
+      <h2>小说列表</h2>
+      {
+        list ?
+          (<ul>
+            {list.map((item, index) => (
+              <li key={item.id}>{item.name}
+                <button onClick={() => { deleteIndex(index) }}>删除</button>
+              </li>
+            )
+            )}
+          </ul>) :
+          (<span>加载中....</span>)
+      }
     </div>
   )
 }
-
-const Button = forwardRef((props, ref) => {
-
-  return (
-    <div>
-      <button ref={ref} {...props}>按钮</button>
-    </div>
-  )
-})
-
 
 export default App

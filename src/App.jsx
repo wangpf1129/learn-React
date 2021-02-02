@@ -1,24 +1,26 @@
-import React, { useReducer } from 'react'
-
-import store from './redux/store.js'
-import reducer from './redux/reducer'
-import Context from './redux/context'
-
-import Users from './components/Users'
-import Books from './components/Books'
-import Movies from './components/Movies'
-
+import React, { useRef, forwardRef, useEffect } from 'react'
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, store)
+  const btnRef = useRef(null)
+  useEffect(() => {
+    console.log(btnRef.current);
+  }, [])
+
   return (
-    <Context.Provider value={{ state, dispatch }}>
-      <Users />
-      <hr />
-      <Books />
-      <Movies />
-    </Context.Provider>
+    <div>
+      <Button ref={btnRef} />
+    </div>
   )
 }
+
+const Button = forwardRef((props, ref) => {
+
+  return (
+    <div>
+      <button ref={ref} {...props}>按钮</button>
+    </div>
+  )
+})
+
 
 export default App
